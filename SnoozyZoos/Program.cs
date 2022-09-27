@@ -39,6 +39,12 @@ Cuddles, 4
 Wheezy, 7
 */
 
+var animals = from an in zooAnimals
+              where an.Age > 3 && an.Age < 8
+              select an;
+var animals2 = zooAnimals.Where(an => an.Age > 3 && an.Age < 8);
+foreach (var animal in animals2) Console.WriteLine($"{animal.Name}, {animal.Age}");
+
 /*
 var challengeOneZooAnimals = // Write your LINQ Query here
 
@@ -69,14 +75,14 @@ MUMBLE
 ASMODEUS
 */
 
-/*
-var challengeTwoZooAnimals = // Write your LINQ Query here
+
+var challengeTwoZooAnimals = from an in zooAnimals where an.Name.Length >= 6 select an;
 
 foreach (var zooAnimal in challengeTwoZooAnimals)
 {
-    Console.WriteLine($"{zooAnimal}");
+    Console.WriteLine($"{zooAnimal.Name.ToUpper()}");
 }
-*/
+
 
 Console.WriteLine("***********************************************");
 
@@ -105,14 +111,16 @@ Dave, 3
 Amber, 2
 */
 
-/* 
-var challengeThreeZooAnimals = // Write your LINQ Query here
+
+var challengeThreeZooAnimals = from an in zooAnimals
+                               orderby an.Age descending
+                               select an;
 
 foreach (var zooAnimal in challengeThreeZooAnimals)
 {
     Console.WriteLine($"{zooAnimal.Name}, {zooAnimal.Age}");
 }
-*/
+
 
 Console.WriteLine("***********************************************");
 
@@ -146,9 +154,20 @@ Zoo Location is: AnimalAdventure
         Hello, my name is Slothu.
 */
 
-// var challengeFourZooAnimals = // Write your LINQ Query here
+var challengeFourZooAnimals = from an in zooAnimals
+                              orderby an.Location
+                              group an by an.Location into lo
+                              select lo;
 
-// Can you write a nested foreach loop to create the expected output above?
+
+foreach (var zooLoc in challengeFourZooAnimals)
+{
+    Console.WriteLine($"Zoo Location is: {zooLoc.Key}");
+    foreach(var zooAn in zooLoc)
+    {
+        Console.WriteLine($"Hello, my name is {zooAn.Name}");
+    }
+}
 
 Console.WriteLine("***********************************************");
 
